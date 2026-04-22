@@ -1,3 +1,5 @@
+from typing import Any
+
 from flask import request, render_template
 from flask_login import login_required, current_user
 
@@ -8,7 +10,8 @@ from my_wallet.blueprints.wallet.fetchers import fetch_wallets_for
 
 
 @login_required
-def statistics():
+def statistics() -> Any:
+    """Render the statistics page or a generated report."""
     report_generators_map = {
         StatReportType.BIGGEST_EXPENSES: report_generators.generate_biggest_expenses_report,
         StatReportType.EXPENSES_BY_WEEKDAY: report_generators.generate_expenses_by_weekday_report,
@@ -21,7 +24,9 @@ def statistics():
         ReportDisplayFormat.XLSX: report_formatters.generate_xlsx_response,
         ReportDisplayFormat.PDF: report_formatters.generate_pdf_response,
     }
-    form = StatReportForm(request.form) if request.method == "POST" else StatReportForm()
+    form = (
+        StatReportForm(request.form) if request.method == "POST" else StatReportForm()
+    )
     wallets = fetch_wallets_for(current_user)
     form.wallets.choices = [(str(w.id), w.title) for w in wallets]
     report_data = None
@@ -30,7 +35,7 @@ def statistics():
         report_type = StatReportType(form.report_type.data)
         output_format = ReportDisplayFormat(form.output_format.data)
         report_generator = report_generators_map[report_type]
-        report_data = report_generator(
+        report_data = report_generator(  # type: ignore[operator]
             date_from=form.date_from.data,
             date_to=form.date_to.data,
             wallets_ids=wallets_ids,
