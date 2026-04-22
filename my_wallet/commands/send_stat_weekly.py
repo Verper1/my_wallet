@@ -1,10 +1,12 @@
 import datetime
 
 from flask import Flask, current_app
-from requests import post
+from requests import post  # type: ignore[import-untyped]
 
 from my_wallet.blueprints.statistics.custom_types import ReportData
-from my_wallet.blueprints.statistics.report_generators import generate_expenses_by_type_report
+from my_wallet.blueprints.statistics.report_generators import (
+    generate_expenses_by_type_report,
+)
 from my_wallet.blueprints.user.fetchers import fetch_all_users_with_configured_telegram
 from my_wallet.blueprints.user.models import User
 from my_wallet.blueprints.wallet.fetchers import fetch_wallets_for

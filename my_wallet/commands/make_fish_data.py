@@ -25,7 +25,9 @@ def run(app: Flask) -> None:
                 wallet_id=wallet.id,
                 timestamp=(
                     datetime.datetime.now()
-                    - datetime.timedelta(days=random.randint(1, 300), hours=random.randint(1, 24))
+                    - datetime.timedelta(
+                        days=random.randint(1, 300), hours=random.randint(1, 24)
+                    )
                 ),
                 amount=random.randint(-2000, 2000),
                 currency="USD",

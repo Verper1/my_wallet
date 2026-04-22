@@ -4,7 +4,8 @@ from enum import Enum
 class ChoicebleEnumMixin:
     @classmethod
     def choices(cls) -> list[tuple[str, str]]:
-        return [(i.value, i.value.lower().replace("_", " ").capitalize()) for i in cls]
+        """Возвращает список кортежей (value, display_value)."""
+        return [(i.value, i.value.lower().replace("_", " ").capitalize()) for i in cls]  # type: ignore[attr-defined]
 
 
 class StatReportType(ChoicebleEnumMixin, Enum):

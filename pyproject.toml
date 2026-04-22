@@ -1,0 +1,80 @@
+[project]
+name = "my-wallet"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "alembic==1.8.1",
+    "flask==2.2.2",
+    "flask-login==0.6.2",
+    "flask-mailgun==0.4",
+    "flask-smorest==0.40.0",
+    "flask-sqlalchemy==2.5.1",
+    "marshmallow==3.19.0",
+    "psycopg2-binary>=2.9.9",
+    "reportlab>=3.6.12",
+    "sqlalchemy==1.4.43",
+    "twilio==7.15.1",
+    "wtforms==3.0.1",
+    "wtforms-alchemy==0.18.0",
+    "xlsxwriter==3.0.3",
+    "pytest>=8.3.4",
+    "pre-commit>=4.6.0",
+    "pytest-cov>=4.1.0"
+]
+
+[dependency-groups]
+dev = [
+    "loguru>=0.7.3",
+    "mypy>=1.19.1",
+    "ruff>=0.15.4"
+]
+
+[tool.ruff]
+exclude = [
+    "*/migrations/*",
+    ".venv",
+    "__pycache__",
+    "tests"
+]
+
+[tool.ruff.lint]
+select = ["F", "W", "D", "ANN"]
+ignore = [
+    "D100",
+    "D101",
+    "D104",
+    "D105",
+    "D103",
+    "ANN401"
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+python_version = "3.13"
+ignore_missing_imports = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+exclude = "tests"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--cov=my_wallet",
+    "--cov-report=html",
+    "--cov-branch",
+    "--cov-fail-under=50"
+]
+filterwarnings = [
+    "ignore::DeprecationWarning:sqlalchemy.*",
+    "ignore::DeprecationWarning:flask.*",
+    "ignore::DeprecationWarning:werkzeug.*",
+    "ignore::DeprecationWarning:pkgutil",
+    "ignore::DeprecationWarning:xlsxwriter"
+]

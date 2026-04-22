@@ -10,7 +10,9 @@ logger = logging.getLogger(__name__)
 
 def compose_command_argparser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--command", action="store", default=None, help="Command to run")
+    parser.add_argument(
+        "--command", action="store", default=None, help="Command to run"
+    )
     return parser
 
 
@@ -30,7 +32,9 @@ def run_command(
     try:
         command_callable = getattr(command_module, callable_name)
     except AttributeError:
-        logger.error(f"Module {command_importable_path} has no attribute {callable_name}")
+        logger.error(
+            f"Module {command_importable_path} has no attribute {callable_name}"
+        )
         return
 
     with app.app_context():
